@@ -1,0 +1,37 @@
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{amsfonts,amssymb,amsthm,amsmath,physics,extarrows}
+\usepackage{mathrsfs}
+\usepackage{tikz}
+\usepackage{hyperref}% 这样可以有超链接(可以点击翻页)
+\usepackage{simpler-wick}% wick收缩
+% \usepackage{arydshln}% 虚线
+
+\usetikzlibrary{arrows.meta,decorations.markings,calc,bending}
+
+
+
+\newtheorem{definition}{定义}[section]
+\newtheorem{lemma}{引理}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{proposition}{命题}[section]
+\newtheorem{example}{例}[section]
+
+\newcommand{\bm}[1]{\boldsymbol{#1}}
+%这行是用来支持latex-workshop预览的
+
+\numberwithin{equation}{section}
+
+% 来自Castel的图片插入代码
+\usepackage{import}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\usepackage{xcolor}
+
+\newcommand{\incfig}[2][1]{%
+    \def\svgwidth{#1\columnwidth}
+    \import{./figures/}{#2.pdf_tex}
+}
+
+% \pdfsuppresswarningpagegroup=1 这一行似乎只在pdftex里使用
+

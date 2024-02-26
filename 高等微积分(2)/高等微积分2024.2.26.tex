@@ -1,0 +1,279 @@
+% 艾神: 这个学期会比较辛苦
+% ODE
+% 多元微积分
+% 级数理论
+% 傅里叶分析(如果时间够)
+
+\section{常微分方程}
+费曼说过(也可能是狄拉克):
+\begin{quote}
+  物理规律用微分方程描述
+\end{quote}
+通常运动方程都是
+\begin{equation}
+  m x'' = f\left( x\left( t \right) \right),
+\end{equation}
+其中涉及未知函数$x(t)$及高阶导数, 称为常微分方程 ODE(ordinary differential equation).
+
+\begin{definition}[ODE]
+  所谓$n$阶的ODE, 是指有关$x(t), x^{(1)}(t), \cdots , x^{(n)}(t)$的等式
+  \begin{equation}\label{eq:definition-of-ODE}
+    F\left( t, x(t), x^{(1)}(t), \cdots ,x^{(n)}(t) \right) = 0,
+  \end{equation}
+  其中的$F$是给定的$n+2$元函数.
+
+  称函数$\phi (t), \quad (t \in \text{ 区间 $I$})$是上述ODE的解, 如果$\forall t \in I$有
+  \begin{equation}
+    F\left( t, \phi (t), \phi ^{(1)}(t), \cdots ,\phi ^{(n)}(t) \right) = 0.
+  \end{equation}
+
+  称ODE中未知函数中出现的高阶导的最高阶数为此ODE的阶数.
+\end{definition}
+
+
+\begin{example}[线性ODE]
+  称ODE \eqref{eq:definition-of-ODE}为线性的ODE, 如果关于$x(t), \cdots , x^{(n)}(t)$都是线性的, 形如
+  \begin{equation}
+    a_n(t) x^{(n)}(t) + \cdots + a_1 x^{(1)}(t) + a_0(t) x (t) = b(t).
+  \end{equation}
+
+  $b(t) = 0$时, 称为齐次线性ODE.
+\end{example}
+
+\begin{example}
+  高阶的ODE可以化为一阶的ODE方程组.
+  \begin{equation}
+    x^{(n)}(t) = f (t, x(t), \cdots , x^{(n-1)}(t))
+  \end{equation}
+  化为
+  \begin{equation}
+    y_1(t) = x(t), y_2 (t) = x^{(1)}(t), \cdots , y_n = x^{(n-1)}(t).
+  \end{equation}
+  改写为方程组
+  \begin{equation}
+    \begin{gathered}
+      y_1' = y_2, \\
+      y_2' = y_3, \\
+      \vdots \\
+      y_n' = f(t, y_1,\cdots ,y_{n}).
+    \end{gathered}
+  \end{equation}
+\end{example}
+
+这样, 只需建立一阶ODE方程组的理论就可以处理线性齐次ODE.
+
+在物理学中, 需要求解给定初始状态的ODE的解. 已知初始状态, 能否确定之后任意时刻的状态? 称为ODE初值问题(Cauchy问题).
+
+\begin{definition}
+  所谓ODE初值问题(Cauchy问题), 是指求解$x(t)$, 满足
+  \begin{equation}
+    \begin{cases}
+      x^{n}(t) = f(t, x(t), x^{(1)}(t), \cdots , x^{(n-1)}(t)), \\
+      x(t_0) = y_0, \\
+      x^{(1)} (t_0) = y_1, \\
+      \qquad \vdots \\
+      x^{(n-1)}(t) = y_{n-1}.
+    \end{cases}
+  \end{equation}
+\end{definition}
+若可求出ODE的全部解 $x(t) = \Phi \left( t, C_1,\cdots , C_n \right)$其中$C_1,\cdots ,C_{n}$ 是未定参数, 只需带入初始条件确定常数就可以得到Cauchy问题的解.
+
+\subsection{分离变量法}
+可分离变量的一阶ODE形如
+\begin{equation}
+  x' (t) = f(t) g(x).
+\end{equation}
+可以形式化改写
+\begin{equation}
+  \frac{\mathrm{d} x}{g(x)} = f(t) \mathrm{d} t.
+\end{equation}
+
+\begin{proof}[证明: 严格求解]
+  ODE为 $\frac{1}{g(x)} x' (t) = f(t)$, 两边关于$t$做不定积分,
+  \begin{equation}
+    \int \frac{1}{g(x(t))} x' (t) \, \mathrm{d} t = \int f(t) \, \mathrm{d} t
+  \end{equation}
+  使用积分换元, 记$u = x(t)$,
+  \begin{equation}
+    \int \frac{\mathrm{d} u}{g(u)} = \int f(t) \, \mathrm{d} t.
+  \end{equation}
+  将结果中的$x$读为$x=x(t)$. 这样若 $G'(x) = \frac{1}{g(x)}$, 则方程化为
+  \begin{equation}
+    G(x(t)) = \int f(t) \, \mathrm{d} t.
+  \end{equation}
+  变为了关于$x(t)$的非ODE.
+\end{proof}
+可分离变量的方程的初值问题解法类似, 将不定积分替换为定积分即可.
+
+\begin{proposition}
+  设$x'(t) \le \phi (t) x(t),\quad \forall t$, 则
+
+\end{proposition}
+\begin{proof}
+  先考虑等式 $x'(t) = \phi (t) x(t)$, 则
+  \begin{equation}
+    x = \mathrm{e}^{\int \phi (t)\, \mathrm{d} t}
+  \end{equation}
+  于是我们得到了命题的严格处理.
+
+  设$x(t) = \mathrm{e}^{\int_{t_0}^{t} \phi (\tau ) \, \mathrm{d}\tau  } u(t)$, 此种表示总是存在的, 只需令$u(t) = x(t) \mathrm{e}^{- \square}$. 带回原不等式
+  \begin{equation}
+    \mathrm{e}^{\square} u'(t) + \mathrm{e}^{\square} \phi (t) u(t) \le \phi (t) \mathrm{e}^{\square}.
+  \end{equation}
+  于是
+  \begin{equation}
+    u'(t) \le 0, \quad \forall t.
+  \end{equation}
+  $\forall t \ge t_0$ 有 $u(t) \le u(t_0)$. 即
+  \begin{equation}
+    x(t) \le x(t_0) \mathrm{e}^{\int_{t_0}^{t} \phi (\tau ) \, \mathrm{d}\tau } 
+  \end{equation}
+\end{proof}
+
+\begin{example}
+  \begin{equation}
+    \begin{cases}
+      x'(t) = x^{2}, \\
+      x(t_0) = x_0 > 0.
+    \end{cases}
+  \end{equation}
+  解为
+  \begin{equation}
+    x(t) = \frac{1}{\frac{1}{x_0} + t_0 - t}.
+  \end{equation}
+  本例表明, $1$阶ODE初值问题未必有长期解.
+\end{example}
+
+\subsection{可转化为可分离变量的方程}
+\begin{example}
+  \begin{equation}
+    \frac{\mathrm{d} y}{\mathrm{d} x} = f\left( ax + by + c \right).
+  \end{equation}
+  令$ax + by + c = z$, 视$z = z(x)$, 有 $y = \frac{z - ax - c}{b}$,带回原方程得到
+  \begin{equation}
+    \frac{z' - a}{b} = f(z),
+  \end{equation}
+  可分离变量,
+  \begin{equation}
+    \int \frac{\mathrm{d} z}{bf(z) + a} = \int \mathrm{d} x.
+  \end{equation}
+\end{example}
+
+\begin{example}
+  $y' = f(x,y)$, 其中$f$是$0$次齐次函数\footnote{$0$次齐次即$f(\lambda x, \lambda y) = f(x,y)$.}.
+
+  由$0$次齐次可得,
+  \begin{equation}
+    y' = f(x,y) = f(x \cdot 1, x \cdot \frac{y}{x}) = f(1, \frac{y}{x}).
+  \end{equation}
+  令$z = \frac{y}{x}$视$z = z(x)$, 代回原方程得到
+  \begin{equation}
+    \int \frac{\mathrm{d} z}{f(1,z) - z} = \int \frac{\mathrm{d} x}{x}
+  \end{equation}
+\end{example}
+
+\begin{example}
+  \begin{equation}
+    \frac{\mathrm{d} y}{\mathrm{d} x} = f \left( \frac{a_1x + b_1y + c_1}{a_2 x + b_2y + c_2} \right)
+  \end{equation}
+  我们先讨论$c_1=c_2=0$的情况, 令$z=\frac{y(x)}{x}$, 可得
+  \begin{equation}
+    z + xz' = f(\frac{a_1 + b_1 z}{a_2 + b_2z})
+  \end{equation}
+  于是
+  \begin{equation}
+    \int \frac{\mathrm{d} z}{f\left( \frac{a_1+b_1z}{a_2+b_2z} \right) - z} = \int \frac{1}{x} \, \mathrm{d} x.
+  \end{equation}
+
+  对于一般的$c_1, c_2 \neq 0$时, 可以把$c_1, c_2$吸收进$x,y$中.
+  \begin{equation}
+    \begin{cases}
+      a_1x + b_1y + c_1 = a_1 \left( x+x_0 \right) + b_1 \left( y+y_0 \right), \\
+      a_2x + b_2y + c_2 = a_2 \left( x+x_0 \right) + b_2 \left( y+y_0 \right), \\
+    \end{cases}
+  \end{equation}
+
+  当$\det \begin{pmatrix}
+  a_1 & b_1\\
+  a_2 & b_2\\
+  \end{pmatrix}\neq 0$时, 上述$\begin{bmatrix}
+  x_0\\
+  y_0\\
+  \end{bmatrix}$存在.
+
+  当$\det \begin{pmatrix}
+  a_1 & b_1\\
+  a_2 & b_2\\
+  \end{pmatrix} = 0$ 时, 有 $\begin{pmatrix}
+  a_1 & b_1\\
+  \end{pmatrix} = \lambda \begin{pmatrix}
+  a_2 & b_2\\
+  \end{pmatrix}$, 于是
+  \begin{equation}
+    \frac{\mathrm{d} y}{\mathrm{d} x} = f \left( \lambda + \frac{d}{a_2x + b_2y + c_2} \right) \equiv g\left( a_2x + b_2y + c \right),
+  \end{equation}
+  转化为处理过的问题.
+\end{example}
+
+\subsection{一阶线性ODE}
+
+\begin{example}
+  求解 $y' + p(x) y = 0$,
+  \begin{equation}
+    \int \frac{\mathrm{d} y}{y} = - \int p(x) \, \mathrm{d} x
+  \end{equation}
+  得到
+  \begin{equation}
+    y = C \mathrm{e}^{- \int_{x_0}^{x} p(x) \, \mathrm{d}x }
+  \end{equation}
+\end{example}
+
+对于非齐次方程, 使用常数变易法, 将相应齐次ODE的解中的常数提升成函数. 设$y(x) = C(x) \mathrm{e}^{- \int_{x_0}^{x} p(x) \, \mathrm{d}x }$, 代回$y' + p(x)y = q(x)$, 有
+\begin{equation}
+  C'(x) \mathrm{e}^{- \square} + C(x) \mathrm{e}^{- \square} \left( -p(x) \right) + p(x) C(x) \mathrm{e}^{-\square} = q(x)
+\end{equation}
+于是得到
+\begin{equation}
+  C(x) = \int q(x) \mathrm{e}^{\int_{x_0}^{x} p(x) \, \mathrm{d}x }\, \mathrm{d} x
+\end{equation}
+
+\begin{example}[伯努利方程]
+  \begin{equation}
+    \frac{\mathrm{d} y}{\mathrm{d} x} + p(x)y = q(x)y^{n}
+  \end{equation}
+  只需处理$n \neq 0, 1$的情况. 令$y = z(x)^{\alpha}$, $\alpha$待定, 带回原方程得到
+  \begin{equation}
+    \alpha z^{\alpha - 1} z' + p(x) z^{\alpha} = q(x) z^{n\alpha}
+  \end{equation}
+  整理得到
+  \begin{equation}
+    \alpha  z' + p(x) z = q(x) z^{n\alpha - \alpha + a}
+  \end{equation}
+  令 $n\alpha - \alpha + 1 = 0$ 即为线性方程.
+\end{example}
+
+\begin{example}[Riccati方程]
+  \begin{equation}
+    y' = f(x)y + g(x) y^{2} + h(x)
+  \end{equation}
+  若已找到一个特解$y_{*}(x)$, 则能找到更多的解, 令$y(x) = y_{*}(x) + z(x)$, 带入得到
+  \begin{equation}
+    z' = f(x)z + g(x) z \left( 2y_{*} + z\right)
+  \end{equation}
+  即
+  \begin{equation}
+    z' = \left( f(x) + 2 g(x) y_{*}(x) \right)z + g(x)z^{2},
+  \end{equation}
+  这是关于$z$的伯努利方程.
+\end{example}
+
+\subsection{全微分方程}
+对于方程
+\begin{equation}
+  \frac{\mathrm{d} y}{\mathrm{d} x} = - \frac{P(x,y)}{Q(x,y)}
+\end{equation}
+当
+\begin{equation}
+  \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}
+\end{equation}
+这个场是有势的.
