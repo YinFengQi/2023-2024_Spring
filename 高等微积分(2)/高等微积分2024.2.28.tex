@@ -1,0 +1,173 @@
+% !TeX root = 高等微积分(2).tex
+在物理中, 这种场被称为保守场, 做功与路径无关.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{保守场做功}
+    \caption{保守场做功}
+    \label{fig:保守场做功}
+\end{figure}
+对于保守场而言, $\forall L_1, L_2$有
+\begin{equation}
+  \int _{L_1} \vec{F} \cdot \mathrm{d} \vec{r} = \int _{L_2} \vec{F} \cdot \mathrm{d} \vec{r}.
+\end{equation}
+
+\begin{proposition}
+  设 $X \subseteq \mathbb{R}^{2}$且$X$无洞, $P, Q$是$X$上的光滑函数, 则 $\exists X \text{上的光滑函数} \phi $, 使得 $\frac{\partial \phi }{\partial x}= P, \frac{\partial \phi }{\partial y} = Q$的充要条件是
+  \begin{equation}
+    \frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}.
+  \end{equation}
+\end{proposition}
+\begin{proof}
+  分两个方向来证明.
+
+  必要性: 由Schwartz定理, $\phi $ 的光滑性保证了 $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$.
+
+  充分性: 沿着一条路径构造$\phi (\vec{r}) = \int ^{\vec{r}} \vec{F}\cdot \mathrm{d} \vec{r}$, 用格林公式可以验证与路径无关.
+\end{proof}
+
+
+\subsection{积分因子法}
+某些情况下未必有 $\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}$, 能否找到一个适当的因子 $\mu \left( x,y \right)$, 使得 $\mu P \mathrm{d} x + \mu Q \mathrm{d} y$ 是全微分? 
+称这样的$\mu \left( x,y \right)$为该ODE的积分因子.
+
+积分因子需要满足
+\begin{equation}
+  \frac{\partial \mu P}{\partial y} = \frac{\partial \mu Q}{\partial x},
+\end{equation}
+展开得到
+\begin{equation}
+  \frac{\partial \mu}{\partial y} P + \mu \frac{\partial P}{\partial y} = \frac{\partial \mu}{\partial y} Q + \mu \frac{\partial Q}{\partial x}
+\end{equation}
+这是一个PDE问题, 我们试图找到一个一元的积分因子$\mu$.
+
+若希望$\mu = \mu(x)$, 则
+\begin{equation}
+  \mu \frac{\partial P}{\partial y} =\frac{\mathrm{d} \mu}{\mathrm{d} x} Q + \mu \frac{\partial Q}{\partial x}
+\end{equation}
+即
+\begin{equation}
+  \frac{\mathrm{d} \mu}{\mathrm{d} x} = \frac{\left( \frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} \right)}{Q} \mu .
+\end{equation}
+若$\frac{\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x}}{Q} = R(x)$, 只依赖于$x$, 则 $\exists \mu = \mu(x)$ 是积分因子, 因为只需 $\frac{1}{\mu} \frac{\mathrm{d} \mu}{\mathrm{d} x} = R(x)$, 是可分离变量的ODE, 解得
+\begin{equation}
+  \mu (x) = \mathrm{e}^{\int R(x)\, \mathrm{d} x}.
+\end{equation}
+
+于是, 若$\frac{\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x}}{Q} = R(x)$只依赖于$x$, 则 $\mu = \exp \left( \int_{x_0}^{x} R(x) \, \mathrm{d}x  \right)$是ODE的积分因子.
+
+类似地, 若$\frac{\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x}}{- P} = T(y)$, 则 $\lambda(y) = \exp \left( \int_{y_0}^{y} T(y) \, \mathrm{d}y  \right)$是ODE的积分因子.
+
+\begin{example}
+  求解
+  \begin{equation}
+    - \left( 1-x^{2} + y \right)\mathrm{d} x + x \mathrm{d} y = 0.
+  \end{equation}
+  不难算出 $\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} = -2$, 所以原方程不是全微分, 我们寻找积分因子. 由于
+  \begin{equation}
+    \frac{\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x}}{Q} = \frac{-2}{x} = R(x).
+  \end{equation}
+  所以ODE存在一个积分因子$\mu(x) = \exp \left( \int R(x) \, \mathrm{d} x \right) = \exp \left( \int -\frac{2}{x} \, \mathrm{d} x \right) = \frac{1}{x^{2}}$.
+
+\begin{figure}[ht]
+    \centering
+    \incfig{ode积分路径}
+    \caption{ODE积分路径}
+    \label{fig:ode积分路径}
+\end{figure}
+按照图 \ref{fig:ode积分路径}中的积分路径进行积分, 得到
+\begin{equation}
+  \phi (x,y) = \int_{1}^{x} \frac{P(x,0)}{x^{2}} \, \mathrm{d}x + \int_{0}^{y} \frac{Q(x,y)}{x^{2}} \, \mathrm{d}y = \int_{1}^{x} \frac{x^{2}-1}{x^{2}} \, \mathrm{d}x + \int_{0}^{y} \frac{1}{x} \, \mathrm{d}y = x-1 + \left( \frac{1}{x} - 1 \right) + \frac{1}{x} y .
+\end{equation}
+于是等势面为$\phi = \operatorname{const}$
+\begin{equation}
+  y = \left( C - x - \frac{1}{x} \right)x = - x^{2} - 1 + Cx .
+\end{equation}
+
+\end{example}
+
+\subsection{高阶ODE的降阶法}
+不显含$y$的二阶ODE, 即
+\begin{equation}
+  y'' = f(x,y')
+\end{equation}
+令$y'(x) = z(x)$, 代回得到
+\begin{equation}
+  z' = g(x,z).
+\end{equation}
+降为一阶ODE, 解出$z = \phi (x,C)$, 于是$y(x) = \int \phi \, \mathrm{d} x$.
+
+不显含$x$的二阶ODE, 形如$y'' = f(y,y')$的初值问题. 我们不希望用到$x$的区间, 考虑$\phi' \phi ^{-1}$与$\phi'' \phi ^{-1}$.
+\begin{proof}[解法]
+  如果$\phi'(x_0)\neq 0$, 那么由反函数定理可得, $\phi $在$x_0$附近的小区间内存在逆$\phi ^{-1}$, 考虑$P(y)= \phi' \left( \phi ^{-1} (y) \right)$. 
+  用它表示$\phi ''$.
+  \begin{equation}
+    \frac{\mathrm{d} P}{\mathrm{d} y} = \phi '' \left( \phi ^{-1}(y) \right) \left( \phi ^{-1}(y) \right)' = \phi '' \left( \phi ^{-1}(y) \right) \frac{1}{\phi' \left( \phi ^{-1}(y) \right)}.
+  \end{equation}
+  即
+  \begin{equation}
+    \phi '' \left( \phi ^{-1}(y) \right) = P(y) \frac{\mathrm{d} P}{\mathrm{d} y}.
+  \end{equation}
+
+  我们回到ODE, 于是$\forall x$有$\phi '' \left( \phi ^{-1}(y) \right) = f\left( \phi \left( \phi ^{-1}(y) \right), \phi ' \left( \phi ^{-1}(y) \right) \right)$, 即
+  \begin{equation}
+    P(y) \frac{\mathrm{d} P}{\mathrm{d} y} = f(y, P(y))
+  \end{equation}
+  这是关于$P$的一阶ODE.
+\end{proof}
+我们形式化地改写上面的解, 令$P(y) = y' \circ y^{-1}$, 则$P \dfrac{\mathrm{d} P}{\mathrm{d} y} = y'' \circ y^{-1}$, 从而原方程变为
+\begin{equation}
+  P \frac{\mathrm{d} P}{\mathrm{d} y} = f(y, P(y)).
+\end{equation}
+解出$P(y) = \psi \left( y \right)$, 得到
+\begin{equation}
+  \phi '(x) = \psi \left( \phi (x) \right),
+\end{equation}
+于是解出原方程.
+
+进一步改写,
+\begin{equation}
+  \begin{cases}
+    y'' = f(y,y'),\quad \text{(不显含$x$)} \\
+    y(x_0) = y_0, \\
+    y' (x_0) = y_1 \neq 0.
+  \end{cases}
+\end{equation}
+令$P = y'$, 于是$P \frac{\mathrm{d} P}{\mathrm{d} y} = y''$, 从而
+\begin{equation}
+  \begin{cases}
+    P \frac{\mathrm{d} P}{\mathrm{d} y} = f(y,p), \\
+    P(y_0) = y_1.
+  \end{cases}
+\end{equation}
+解出$P(y) = \psi (y)$, 然后求出$y$.
+
+\begin{example}
+  求解
+  \begin{equation}
+    \begin{cases}
+      1 + \left( y' \right)^{2} = 2y y'', \\
+      y(1) = 1, \\
+      y'(1) = -1.
+    \end{cases}
+  \end{equation}
+  令$P = y'$, 则$y'' = P \frac{\mathrm{d} P}{\mathrm{d} y}$, 从而
+  \begin{equation}
+    \begin{cases}
+      1 + P ^{2} = 2y P \frac{\mathrm{d} P}{\mathrm{d} y}, \\
+      P(1) = -1.
+    \end{cases}
+  \end{equation}
+  于是
+  \begin{equation}
+    P(y) = - \sqrt{2y-1}.
+  \end{equation}
+  两边积分得到
+  \begin{equation}
+    \int_{1}^{y(x)} \frac{\mathrm{d} y}{\sqrt{2y-1}} = \int _{1}^{x}  -\mathrm{d} x = 1- x.
+  \end{equation}
+  解得
+  \begin{equation}
+    y = \frac{x^{2} - 4x + 5}{2}.
+  \end{equation}
+\end{example}
