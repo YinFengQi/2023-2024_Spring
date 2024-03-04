@@ -1,0 +1,200 @@
+% !TeX root = 高等微积分(2).tex
+
+\section{一阶ODE初值问题解的存在性和唯一性}
+
+\begin{example}
+  未必有长期解.
+  \begin{equation}
+    \begin{cases}
+      y' = y^{2}, \\
+      y(0) = y_0 > 0
+    \end{cases}
+  \end{equation}
+\end{example}
+
+\begin{example}
+  解未必唯一.
+  \begin{equation}
+    \begin{cases}
+      y' = \sqrt{\left| y \right|}, \\
+      y(0) = 0.
+    \end{cases}
+  \end{equation}
+  在$x=0$附近有无穷个解.
+
+  构造解:让$x>0$时$y>0$.
+  \begin{equation}
+    \int \frac{\mathrm{d} y}{\sqrt{y}} = \int_{0}^{x} \mathrm{d}x = x- b.
+  \end{equation}
+  即
+  \begin{equation}
+   \left. 2 y^{\frac{1}{2}}\right|_{0}^{y(x)} = x-b.
+  \end{equation}
+  于是
+  \begin{equation}
+    y = 
+    \begin{cases}
+      \frac{\left( x-b \right)^{2}}{4}, & x>b \\
+      \ 0 , & -a \le x \le b, \\
+      - \frac{\left( x+a \right)^{2}}{4}, & x< -a.
+    \end{cases}
+  \end{equation}
+\end{example}
+
+对怎样好的ODE初值问题, 其短期解是存在且唯一的?
+
+\begin{proposition}
+  $C^{1}$光滑函数$y(x)$满足
+  \begin{equation}
+    \begin{cases}
+      y' = f(x,y), \\
+      y(x_0) = y_0.
+    \end{cases}
+  \end{equation}
+  等价于$\forall x$有 $y(x) = y_0 + \int _{x_0}^{x} f(t,y(t))\, \mathrm{d} t$.
+\end{proposition}
+
+\begin{proof}
+  设$y \in C^{1}$是它的解, 
+  \begin{equation}
+    \int _{x_0}^{x} y'\, \mathrm{d} x = \int _{x_0}^{x} f(x,y) \, \mathrm{d} x
+  \end{equation}
+  即
+  \begin{equation}
+    y(x) = y_0 + \int_{x_0}^{x} f(x,y(x)) \, \mathrm{d}x .
+  \end{equation}
+
+
+  另一方面, 设$y(x)$满足积分方程, 则$y(x_0) = y_0$.
+  利用连续函数变上限积分的求导法则可以得到,
+  \begin{equation}
+    \frac{\mathrm{d}}{\mathrm{d} x} y(x) = \frac{\mathrm{d} }{\mathrm{d} x} \left( y_0 + \int_{x_0}^{x} f(t,y(t)) \, \mathrm{d}t  \right) = f(x,y(x)).
+  \end{equation}
+  表明$y(x)$可导, 且$y' = f(x,y)$也连续, $y \in C^{1}$.
+\end{proof}
+上面的命题将微分方程转化为积分方程.
+\begin{example}[含时微扰论]
+  \begin{equation}
+    \begin{cases}
+      \mathrm{i} \frac{\mathrm{d} U}{\mathrm{d} t} = V(t) U(t), \\
+      U(-\infty ) = \operatorname{Id}
+    \end{cases}
+  \end{equation}
+  这里面的$U,V$都是无穷维Hilbert空间中的算子. 改写为积分方程得到
+  \begin{equation}
+    U(t) = 1 + \int_{-\infty }^{t} -\mathrm{i} U V(t) \, \mathrm{d}t 
+  \end{equation}
+  迭代即可得到Dyson级数,
+  \begin{equation}
+    \begin{aligned}
+      U(t) & = 1 + \int_{-\infty}^{t} -\mathrm{i} V(t_1) \, \mathrm{d}t_1 + \int _{-\infty }^{t}\int _{-\infty }^{t_1} \left( -\mathrm{i}V(t_1) \right) \left( -\mathrm{i}V(t_2) \right)\, \mathrm{d} t_2 \mathrm{d} \,t_1 +\cdots  \\
+           & \equiv  T\left\{ \exp \left( \int _{-\infty }^{t} V(t) \, \mathrm{d} t \right) \right\}
+    \end{aligned}
+  \end{equation}
+\end{example}
+
+猜想这种逐阶近似$\phi _{n}(x) = y_0 + \int _{x_0}^{x} f(t,\phi _{n-1}(x)) \, \mathrm{d} t$得到的解$\left\{ \phi _{n}(x) \right\}$有极限.采用压缩映像定理来证明.
+\begin{theorem}
+  设$\left( X,d \right)$是一个度量空间\footnote{满足正定, 对称, 三角不等式.}, 且任何Cauchy序列都收敛.
+
+  设$T\colon X \to X$是压缩的, 即$\exists 0 < c < 1$使得$\forall x,y \in X$有$d\left( T(x), T(y) \right) \le c d(x,y)$.
+
+  则$T$有唯一的不动点.
+\end{theorem}
+压缩映像定理有更强的版本.
+\begin{theorem}[Weissinger]
+  设$(X,d)$是完备度量空间, 设$T\colon X \to X$满足$\forall n \in \mathbb{Z}_{+}$存在常数$\theta_{n}$使$\forall x,y$有
+  \begin{equation}
+    d\left( T^{(n)}(x), T^{(n)}(y) \right) \le \theta_{n} d(x,y)
+  \end{equation}
+  且
+  \begin{equation}
+    \sum_{n=1}^{\infty } \theta_{n} < + \infty.
+  \end{equation}
+  则$T$有唯一的不动点.
+\end{theorem}
+\begin{proof}[Proof Weissinger Theorem]
+  选取$x_0 \in X$, 定义点列
+  \begin{equation}
+  \left\{ x_n = T^{(n)}(x_0) \right\}_{n=1}^{+\infty }
+  \end{equation}
+  来证$\{ x_n \}$是Cauchy列, 即$\forall \varepsilon > 0$, $\exists N \in \mathbb{Z}_+$, $\forall m > n \ge N$有 $d(x_m, x_n) < \varepsilon$
+  \begin{equation}
+    d\left( x_m, x_n \right) = d \left( T^{n} (T^{m-n}x_0), T^{n} (x_0) \right) \le \theta_{n} d \left( T^{m-n}(x_0), x_0 \right)   \end{equation}
+  由三角不等式, $x_{m-n}$与$x_0$的距离小于等于$\sum_{i=0}^{m-n-1}d(x_{i}, x_{i+1}) $.于是
+  \begin{equation}
+    d\left( x_m,x_n \right) \le \theta_{n} \left( 1 + \theta_1 + \cdots  + \theta_{m-n-1} \right) d\left( x_0, x_1 \right)
+  \end{equation}
+  由于$\{ \theta_{n} \}$的求和是有限的, $\lim _{n \to + \infty } \theta_{n} = 0$, 得证.
+\end{proof}
+Weissinger定理的适用范围更广, 因为$\theta_{1}$可以大于$1$.
+
+\begin{definition}[Lipshitz condition]
+  称$f$在$I$上满足(关于$y_0$)的Lipshitz条件, 如果$\exists \text{正数} L$, 使
+  \begin{equation}
+    \left| f(x,y_1) - f(x,y_2) \right| \le L \left| y_1 - y_2 \right|, \quad \forall (x,y_1), (x,y_2) \in I.
+  \end{equation}
+\end{definition}
+
+\begin{theorem}[Picard-Lindel\"of定理]
+  求解初值问题
+  \begin{equation}
+    \begin{cases}
+      y' = f(x,y), \\
+      y(x_0) = y_0.
+    \end{cases}
+  \end{equation}
+  设$f$在$I = [x_0 \pm a] \times [y_0 \pm b]$中连续, 且$f$在$I$上满足Lipshitz条件.
+
+  记$M = \max _{I} |f|$, 则上述ODE初值问题在区间$[x_0-h, x_0+h]$上有解且解唯一, 其中$h = \min \{ a, \frac{b}{M} \}$.
+\end{theorem}
+
+\begin{proof}
+  Step 1: 找积分方程的不动点, 找$y(x)$, 使得$y(x) = y_0 + \int_{x_0}^{x} f(t,y(t)) \, \mathrm{d}t $, 视右边为$T(y)$.
+
+  定义$X$为所有连续函数$\phi\colon [x_0-h,x_0+h] \to \mathbb{R}$构成的集合, 满足$\phi (x_0) = y_0$, 且$\phi (x) \in [y_0-b, y_0+b], \ \forall x \in  [x_0-h,x_0+h]$
+
+  定义$T\colon X \to X$为
+  \begin{equation}
+    \left( T(\phi ) \right)(x) = y_0 + \int_{x_0}^{x} f(t,\phi (t)) \, \mathrm{d}t. 
+  \end{equation}
+  显然$T(\phi )$在$X$中.
+
+  Step 2: $X$上有完备度量.
+  定义$X$上度量
+  \begin{equation}
+    d(\phi ,\psi ) \equiv \max_{x \in [x_0-h,x_0+h]} \left| \phi (x) - \psi (x) \right|
+  \end{equation}
+  逐点距离的最大值$l_{\infty } \operatorname{norm}$.
+
+  可验证$(X,d)$是完备的度量空间.
+
+  Step 3: 验证$T$满足Weissinger定理的条件.
+  \begin{equation}
+    d\left( T^{n}\phi , T^{n}\psi  \right) = \max \left| T^{n}\phi(x) - T^{n}\psi(x)  \right|.
+  \end{equation}
+  所以
+  \begin{equation}
+    \begin{aligned}
+  & \left| T^{n}\phi(x) - T^{n}\psi (x) \right| = \left| T T^{n-1}\phi (x) - TT^{n-1} \phi (x) \right|\\
+      = & \left| \int_{x_0}^{x} \left( f\left( t, T^{n-1}\phi (t) \right) - f\left( t, T^{n-1}\psi (t) \right) \right) \, \mathrm{d}t  \right| \\
+    \le & \left|  \int_{x_0}^{x} \left| f\left( t, T^{n-1}\phi (t) \right) - f\left( t, T^{n-1}\psi (t) \right) \right| \, \mathrm{d}t \right| \\
+    \le & \left| \int_{x_0}^{x} L\left| T^{n-1}\phi (t) - T^{n-1}\psi (t)\right| \, \mathrm{d}t  \right|.
+    \end{aligned}
+  \end{equation}
+  最后一步用到了Lipshitz条件.
+
+  用归纳法可以证明
+  \begin{equation}
+    \left| T^{n} \phi (x) - T^{n}\psi (x) \right| \le  \frac{L^{n}}{n!} \left| x-x_0 \right|^{n} d(\phi ,\psi )
+  \end{equation}
+
+  于是得到
+  \begin{equation}
+    d\left( T^{n}\phi , T^{n}\psi  \right) \le \frac{L^{n}}{n!} h^{n} d(\phi ,\psi )
+  \end{equation}
+  取$\theta_{n} = \frac{L^{n}}{n!} h^{n}$, 于是
+  \begin{equation}
+    \sum_{n=0}^{+\infty } \theta_{n} = \sum \frac{1}{n!} \left( Lh \right)^{n} = \mathrm{e}^{Lh} < +\infty .
+  \end{equation}
+\end{proof}
