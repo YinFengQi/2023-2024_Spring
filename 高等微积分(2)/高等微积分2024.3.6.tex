@@ -1,0 +1,118 @@
+% !TeX root = 高等微积分(2).tex
+
+\begin{theorem}[Gr\"onwall不等式]
+  设$u(x),\alpha(x),\beta(x)$在$[a,b]$上连续, 且$\beta$处处非负.
+  已知
+  \begin{equation}
+    u \le \alpha(x) + \int_{a}^{x} u(t)\beta(t) \, \mathrm{d}t ,\quad \forall t \in [a,b].
+  \end{equation}
+  则
+  \begin{equation}
+    u(x) \le \alpha(x) + \int_{a}^{x} \mathrm{e}^{\int _{s}^{xj
+    }\beta} \alpha(s) \beta(s)  \, \mathrm{d}s 
+  \end{equation}
+\end{theorem}
+\begin{proof}
+  记$v(x) = \int _{a}^{x} u \beta$, 则$u(x) \le \alpha(x) + v(x)$
+  由变上限积分的求导知,
+  \begin{equation}
+    v'(x) = u(x)\beta(x) \le \alpha(x) \beta(x) + v(x) \beta(x).
+  \end{equation}
+  这个不等式是好解的, 设$v(x) = w(x)\mathrm{e}^{\int _{a}^{x}\beta}$
+  带入得,
+  \begin{equation}
+    w'(x)\mathrm{e}^{\int _{a}^{x}\beta} \le \alpha(x) \beta(x).
+  \end{equation}
+  注意到$w(a) = v(a) = 0$,
+  \begin{equation}
+    w(x) = \int _{a}^{x} w' \le \int _{a}^{x} \mathrm{e}^{-\int _{a}^{t}} \alpha(t) \beta(t)\, \mathrm{d} t
+  \end{equation}
+  于是带入原不等式,
+  \begin{equation}
+    u(x) \le \alpha(x) + \left( \int _{a}^{x} \mathrm{e}^{-\int _{a}^{t}}\alpha(t) \beta(t) \, \mathrm{d} t \right) \mathrm{e}^{\int _{a}^{x} \beta} = \alpha(x) + \int _{a}^{x} \mathrm{e}^{\int _{t}^{x}\beta} \alpha(t) \beta(t) \, \mathrm{d} t.
+  \end{equation}
+\end{proof}
+
+\begin{example}
+  ODE初值问题
+  \begin{equation}
+    \begin{cases}
+      y' = f(x,y), \\
+      y(x_0) = y_0.
+    \end{cases}
+    \quad (f \in C^{1})
+  \end{equation}
+  的长期解至多唯一.
+  由Lipshitz条件,
+  \begin{equation}
+    \left| \phi (x) - \psi (x) \right| = \left| \int _{x_0}^{x} \left( f(t,\phi (t) ) - f(t,\psi (t)) \right)\, \mathrm{d} t \right| \le \int _{x_0}^{x} L\left| \phi (t) - \psi (t) \right| \, \mathrm{d} t
+  \end{equation}
+  应用Gr\"onwall不等式, 可得.
+\end{example}
+
+长期解的存在性:
+\begin{itemize}
+  \item 线性ODE初值问题有长期解.
+  \item $f$能被线性函数控制住.
+\end{itemize}
+\begin{theorem}
+  设$f(x,y) \in C\left( \mathbb{R}^{2} \right)$ 且存在非负连续函数$A(x), B(x)$使 $|f(x,y)| \le A(x)|y| + B(x), \ \forall (x,y) \in \mathbb{R}^{2}$ , 则Cauchy问题在$\mathbb{R}$上面有长期解.
+\end{theorem}
+\begin{proof}
+  这里给出概要. 用反证法, 设向右至多解到区间$[x_0,M)$. 记解为$\phi $, 则$\forall x \in [x_0,M)$有
+  \begin{equation}
+    |\phi (x)| = \left| y_0 + \int_{x_0}^{x} f(t,\phi (t)) \, \mathrm{d}t  \right| \le |y_0| + \int_{x_0}^{x} \left( A(t) |\phi (t)| + B(t) \right) \, \mathrm{d}t
+  \end{equation}
+  $A(t)$在$[x_0,M]$上有最大值$K$, $B(t)$同样有最大值$L$, 带回知
+  \begin{equation}
+    |\phi (x)| \le |y_0| + \int _{x_0}^{x} \left( K|\phi (t)| + L \right) \, \mathrm{d} t
+  \end{equation}
+  记$\alpha(x) = |y_0| + L(x-x_0), \beta \equiv k$, 有
+  \begin{equation}
+    u(x) \le \alpha(x) + \int _{x_0}^{x} \beta u ,\quad (\forall x>x_0).
+  \end{equation}
+  经过计算可得,
+  \begin{equation}
+    |\phi (x)| \le |y_0|\mathrm{e}^{k(x-x_0)} + \frac{L}{K} \left( \mathrm{e}^{K(x-x_0)} -1 \right)
+  \end{equation}
+
+  所以, 当$x \to M^{-}$时,
+  \begin{equation}
+    |\phi (x)| \le |y_0| \mathrm{e}^{k(M-x_0)} + \frac{L}{K} \left( \mathrm{e}^{K(M-x_0)} -1 \right)
+  \end{equation}
+  有界, 由此知可定义$\phi (M) = \lim _{x \to M^{-}} \phi (x)$, 由Picard-Lindel\"of知$\phi $从$M$开始还可以向右解.
+\end{proof}
+
+\section{常微分线性方程组}
+线性ODE方程组$\frac{\mathrm{d} \vec{y}(x)}{\mathrm{d} x} = A(x) \vec{y} + \vec{b}(x)$的Cauchy问题有唯一的长期解.
+
+\begin{theorem}
+  解空间是$\mathbb{R}$上的$n$维线性空间.
+\end{theorem}
+\begin{proof}
+  定义一个evaluation映射$\operatorname{eV}_{x_0}\colon \{ \text{解空间} \} \to \mathbb{R}^{n},\ \operatorname{eV}_{x_0}(\vec{\phi}) = \vec{\phi}(x_0)$, 容易发现$\operatorname{eV}_{x_0}$是线性双射, 所以解空间线性同构于$\mathbb{R}^{n}$.
+\end{proof}
+
+找到$n$个线性无关的解, 就得到了解空间的一组基.
+如何判断ODE的$n$个解是否线性无关? 使用$\operatorname{eV}_{x_0}$同构到$\mathbb{R}^{n}$上面.
+
+\begin{definition}[Wronsky行列式]
+  对$\vec{\phi}_{i}\colon (a,b) \to \mathbb{R}^{n},\ (1 \le i \le n)$, 定义它们的朗斯基行列式,
+  \begin{equation}
+    W(x) = W(\vec{\phi}_{1}, \cdots ,\vec{\phi}_n) = \det \left[ \vec{\phi}_{1}(x),\cdots ,\vec{\phi}_{n}(x) \right]
+  \end{equation}
+\end{definition}
+于是任何一点$x$处$W(x)$非零就说明这组解线性无关, $W(x)$在某一点处非零就说明它全局非零.
+
+\begin{proposition}
+  设$\vec{\phi}_{1}, \cdots ,\vec{\phi}_n$ 是一个ODE的解, 则
+  \begin{equation}
+    \frac{\mathrm{d} W}{\mathrm{d} x} = \tr (A(x)) W(x)
+  \end{equation}
+  即
+  \begin{equation}
+    W(x) = W(x_0) \exp \int _{x_0}^{x} \tr(A)
+  \end{equation}
+  称为刘维尔公式.
+\end{proposition}
+
